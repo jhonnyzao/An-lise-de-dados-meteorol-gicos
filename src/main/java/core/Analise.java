@@ -10,6 +10,8 @@ import org.apache.hadoop.mapred.FileOutputFormat;
 import org.apache.hadoop.mapred.JobClient;
 import org.apache.hadoop.mapred.JobConf;
 
+import mappers.CondensacaoDaAguaMapper;
+import mappers.NivelDoMarMapper;
 import mappers.TemperaturaMapper;
 import reducers.DesvioPadraoReducer;
 import reducers.MediaReducer;
@@ -29,13 +31,21 @@ public class Analise {
 			conf.setReducerClass(MediaReducer.class);
 		} else if (metodo.contains("dp")) {
 			conf.setReducerClass(DesvioPadraoReducer.class);
+		} else {
+			return;
 		}
 
 		if (metodo.contains("temp")) {
 			conf.setMapperClass(TemperaturaMapper.class);
+		} else if (metodo.contains("cond")) {
+			conf.setMapperClass(CondensacaoDaAguaMapper.class);
+		} else if (metodo.contains("nvmar")) {
+			conf.setMapperClass(NivelDoMarMapper.class);
+		} else {
+			return;
 		}
-		
-		//TODO periodo
+
+		// TODO periodo
 
 		conf.setMapOutputKeyClass(Text.class);
 		conf.setMapOutputValueClass(FloatWritable.class);

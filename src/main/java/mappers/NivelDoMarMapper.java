@@ -10,7 +10,7 @@ import org.apache.hadoop.mapred.Mapper;
 import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapred.Reporter;
 
-public class TemperaturaMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, FloatWritable> {
+public class NivelDoMarMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, FloatWritable> {
 
 	final static double MISSING = 9999.9;
 
@@ -25,12 +25,12 @@ public class TemperaturaMapper extends MapReduceBase implements Mapper<LongWrita
 
 		String ano = linha.substring(14, 18);
 
-		float temperaturaMedia;
+		float nivelMedio;
 
-		temperaturaMedia = Float.parseFloat(linha.substring(25, 31));
+		nivelMedio = Float.parseFloat(linha.substring(47, 53));
 
-		if (temperaturaMedia != MISSING) {
-			output.collect(new Text(ano), new FloatWritable(temperaturaMedia));
+		if (nivelMedio != MISSING) {
+			output.collect(new Text(ano), new FloatWritable(nivelMedio));
 		}
 
 	}

@@ -10,13 +10,12 @@ import org.apache.hadoop.mapred.Mapper;
 import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapred.Reporter;
 
-public class TemperaturaMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, FloatWritable> {
+public class CondensacaoDaAguaMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, FloatWritable> {
 
 	final static double MISSING = 9999.9;
 
 	public void map(LongWritable key, Text value, OutputCollector<Text, FloatWritable> output, Reporter reporter)
 			throws IOException {
-
 		String linha = value.toString();
 
 		if (linha.contains("STN")) {
@@ -25,12 +24,12 @@ public class TemperaturaMapper extends MapReduceBase implements Mapper<LongWrita
 
 		String ano = linha.substring(14, 18);
 
-		float temperaturaMedia;
+		float pontoMedio;
 
-		temperaturaMedia = Float.parseFloat(linha.substring(25, 31));
+		pontoMedio = Float.parseFloat(linha.substring(36, 42));
 
-		if (temperaturaMedia != MISSING) {
-			output.collect(new Text(ano), new FloatWritable(temperaturaMedia));
+		if (pontoMedio != MISSING) {
+			output.collect(new Text(ano), new FloatWritable(pontoMedio));
 		}
 
 	}
