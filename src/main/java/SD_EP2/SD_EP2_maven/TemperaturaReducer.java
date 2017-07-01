@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.apache.hadoop.io.DoubleWritable;
-import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapred.Reducer;
 import org.apache.hadoop.mapred.Reporter;
 
-public class TemperaturaReducer implements Reducer<Text, IntWritable, Text, DoubleWritable> {
+public class TemperaturaReducer implements Reducer<Text, FloatWritable, Text, DoubleWritable> {
 
 	public void configure(JobConf arg0) {
 		// TODO Auto-generated method stub
@@ -24,21 +24,38 @@ public class TemperaturaReducer implements Reducer<Text, IntWritable, Text, Doub
 
 	}
 
-	public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, DoubleWritable> output,
+	public void reduce(Text key, Iterator<FloatWritable> values, OutputCollector<Text, DoubleWritable> output,
 			Reporter reporter) throws IOException {
 
-		double media = 0;
-		ArrayList<Integer> temperaturas = new ArrayList<Integer>();
+		float temperaturaMedia = 0;
+		ArrayList<Float> temperaturas = new ArrayList<Float>();
 
 		while (values.hasNext()) {
-			int temperatura = values.next().get();
+			float temperatura = values.next().get();
 			temperaturas.add(temperatura);
-			media += temperaturas.get(temperatura);
+			temperaturaMedia += temperatura;
 		}
 
-		media /= temperaturas.size();
+		if (temperaturas.size() >= 1) {
+			temperaturaMedia /= temperaturas.size();
 
-		output.collect(key, new DoubleWritable(media));
+			double variancia = 0;
+			double desvioPadrao = 0;
+
+			for (Float temperatura : temperaturas) {
+				double valor = temperatura - temperaturaMedia;
+				valor *= valor;
+				variancia += valor;
+			}
+
+			variancia /= (temperaturas.size() - 1);
+
+			desvioPadrao = Math.sqrt(variancia);
+
+			output.collect(key, new DoubleWritable(temperaturaMedia));
+			output.collect(key, new DoubleWritable(desvioPadrao));
+
+		}
 
 	}
 
