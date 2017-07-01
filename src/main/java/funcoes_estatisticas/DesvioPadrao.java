@@ -32,12 +32,12 @@ public class DesvioPadrao {
 	}
 
 	public static Dados desvioPadraoPasso(Iterator<FloatWritable> values) {
-		Dados dados = Media.mediaPasso(values);
+		Dados dados = varianciaPasso(values);
 		if (dados.getMedia() == null) {
 			return dados;
 		}
-		float desvioPadrao = (float) Math.sqrt(dados.getVariancia());
-		dados.setDesvioPadrao(desvioPadrao);
+		double desvioPadrao = Math.sqrt(dados.getVariancia());
+		dados.setDesvioPadrao((float) desvioPadrao);
 		return dados;
 	}
 

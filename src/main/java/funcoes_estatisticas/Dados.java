@@ -13,8 +13,8 @@ public class Dados {
 		return variancia;
 	}
 
-	public void setVariancia(Float variancia) {
-		this.variancia = variancia;
+	public void setVariancia(float variancia) {
+		this.variancia = new Float(variancia);
 	}
 
 	public ArrayList<Float> getElementos() {
@@ -29,16 +29,16 @@ public class Dados {
 		return media;
 	}
 
-	public void setMedia(Float media) {
-		this.media = media;
+	public void setMedia(float media) {
+		this.media = new Float(media);
 	}
 
 	public Float getDesvioPadrao() {
 		return desvioPadrao;
 	}
 
-	public void setDesvioPadrao(Float desvioPadrao) {
-		this.desvioPadrao = desvioPadrao;
+	public void setDesvioPadrao(float desvioPadrao) {
+		this.desvioPadrao = new Float(desvioPadrao);
 	}
 
 }
