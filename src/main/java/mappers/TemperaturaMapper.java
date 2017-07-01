@@ -1,4 +1,4 @@
-package SD_EP2.SD_EP2_maven;
+package mappers;
 
 import java.io.IOException;
 
