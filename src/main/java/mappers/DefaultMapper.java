@@ -42,22 +42,20 @@ public class DefaultMapper extends Mapper<LongWritable, Text, Text, FloatWritabl
 			return;
 		}
 
-		String ano = linha.substring(14, 18);
+		String data = linha.substring(14, 18);
 
 		float valorMedio;
 
 		String posicoesInformacao = obtemPosicaoDoMetodo(metodo);
 		String[] posicaoInicialEFinal = posicoesInformacao.split("-");
+		
 		int posicaoInicial = Integer.parseInt(posicaoInicialEFinal[0]);
 		int posicaoFinal = Integer.parseInt(posicaoInicialEFinal[1]);
-		
-		System.out.println(posicaoInicial);
-		System.out.println(posicaoFinal);
 		
 		valorMedio = Float.parseFloat(linha.substring(posicaoInicial, posicaoFinal));
 
 		if (valorMedio != MISSING) {
-			context.write(new Text(ano), new FloatWritable(valorMedio));
+			context.write(new Text(data), new FloatWritable(valorMedio));
 		}
 
 	}
