@@ -2,8 +2,6 @@ package funcoes_estatisticas;
 
 import java.util.ArrayList;
 
-import java.util.Iterator;
-
 import org.apache.hadoop.io.FloatWritable;
 
 public class Media {

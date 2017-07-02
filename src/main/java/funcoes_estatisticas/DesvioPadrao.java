@@ -1,7 +1,5 @@
 package funcoes_estatisticas;
 
-import java.util.Iterator;
-
 import org.apache.hadoop.io.FloatWritable;
 
 public class DesvioPadrao {
