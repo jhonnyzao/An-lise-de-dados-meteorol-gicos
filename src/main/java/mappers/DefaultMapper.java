@@ -15,19 +15,19 @@ public class DefaultMapper extends Mapper<LongWritable, Text, Text, FloatWritabl
 	
 	public static String obtemPosicaoDoMetodo(String metodo){
 		Map<String, String> posicoes = new HashMap<String, String>();
-		posicoes.put("TEMP", "25-31");
-		posicoes.put("DEWP", "36-41");
-		posicoes.put("SLP", "47-52");
-		posicoes.put("STP", "58-63");
-		posicoes.put("VISIB", "69-73");
-		posicoes.put("WDSP", "79-83");
-		posicoes.put("MXSPD", "89-93");
-		posicoes.put("GUST", "96-100");
-		posicoes.put("MAX", "103-108");
-		posicoes.put("MIN", "111-116");
-		posicoes.put("PRCP", "119-123");
-		posicoes.put("SNDP", "126-130");
-		posicoes.put("FRSHTT", "133-138");
+		posicoes.put("TEMP", "24-30");
+		posicoes.put("DEWP", "35-41");
+		posicoes.put("SLP", "46-52");
+		posicoes.put("STP", "57-63");
+		posicoes.put("VISIB", "68-73");
+		posicoes.put("WDSP", "78-83");
+		posicoes.put("MXSPD", "88-93");
+		posicoes.put("GUST", "95-100");
+		posicoes.put("MAX", "102-108");
+		posicoes.put("MIN", "110-116");
+		posicoes.put("PRCP", "118-123");
+		posicoes.put("SNDP", "125-130");
+		posicoes.put("FRSHTT", "132-138");
 		
 		return posicoes.get(metodo);
 	}
