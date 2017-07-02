@@ -18,6 +18,7 @@ import org.apache.hadoop.util.ToolRunner;
 import mappers.DefaultMapper;
 import reducers.DesvioPadraoReducer;
 import reducers.MediaReducer;
+import reducers.TemperaturaMinimosQuadradosReducer;
 
 public class Analise extends Configured implements Tool{
 
@@ -87,6 +88,8 @@ public class Analise extends Configured implements Tool{
 			job.setReducerClass(MediaReducer.class);
 		} else if (filtros[3].contains("DESV")) {
 			job.setReducerClass(DesvioPadraoReducer.class);
+		} else if (filtros[3].contains("MIN")) {
+			job.setReducerClass(TemperaturaMinimosQuadradosReducer.class);
 		} else {
 			return -1;
 		}
@@ -121,16 +124,16 @@ public class Analise extends Configured implements Tool{
 	}
 	
 	public static void pedeAnoInicial(){
-		System.out.println("Você quer que dados de a partir de que ano entrem nos cálculos? Ex: 2009");
+		System.out.println("\nVocê quer que dados de a partir de que ano entrem nos cálculos? Ex: 2009");
 	}
 	
 	public static void pedeAnoFinal(){
-		System.out.println("E qual o ano limite? Ex: 2017");
+		System.out.println("\nE qual o ano limite? Ex: 2017");
 	}
 	
 	public static void pedeOperacaoEstatistica(){
 		System.out.println(
-			"Que operação você deseja realizar na análise? Digite a sigla correspondente:\n"+
+			"\nQue operação você deseja realizar na análise? Digite a sigla correspondente:\n"+
 			"MED  | Média\n"+
 			"DESV | Desvio padrão\n"+
 			"MIN  | Mínimos quadrados\n"
@@ -139,7 +142,7 @@ public class Analise extends Configured implements Tool{
 	
 	public static void pedeFormaAgrupamento(){
 		System.out.println(
-			"E como você quer agrupar os resultados? Digite a sigla da opção desejada:\n\n"+
+			"\nE como você quer agrupar os resultados? Digite a sigla da opção desejada:\n\n"+
 			"MES | Por mês\n"+
 			"SEM | Por dia da semana\n"+
 			"ANO | Por ano\n"
