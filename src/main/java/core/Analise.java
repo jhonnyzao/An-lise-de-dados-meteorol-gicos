@@ -81,21 +81,21 @@ public class Analise extends Configured implements Tool{
 	
 	public static void pedeTipoDeInformacao(){
 		System.out.println(
-			"Por favor, digite a sigla correspondente ao tipo de informação desejada:\n\n"+
-			"Sigla  | Informação\n\n"+
-			"TEMP   | Temperatura\n"+
-			"DEWP   | Temperatura de condensação\n"+
-			"SLP    | Pressão marítma"+
-			"STP    | Pressão do ar"+
-			"VISIB  | Visibilidade do dia"+
-			"WDSP   | Velocidade do vento"+
-			"MXSPD  | Velocidade máxima do vento"+
-			"GUST   | Rajada máxima"+
-			"MAX    | Temperatura máxima"+
-			"MIN    | Temperatura mínima"+
-			"PRCP   | Precipitação total"+
-			"SNDP   | Profundidade de neve em polegadas"+
-			"FRSHTT | Em representação binária, indica se houve Fog, Rain, Snow, Hail, Thunder e Tornado, respectivamente"
+				"Por favor, digite a sigla correspondente ao tipo de informação desejada:\n\n"+
+						"Sigla  | Informação\n\n"+
+						"TEMP   | Temperatura\n"+
+						"DEWP   | Temperatura de condensação\n"+
+						"SLP    | Pressão marítma\n"+
+						"STP    | Pressão do ar\n"+
+						"VISIB  | Visibilidade do dia\n"+
+						"WDSP   | Velocidade do vento\n"+
+						"MXSPD  | Velocidade máxima do vento\n"+
+						"GUST   | Rajada máxima\n"+
+						"MAX    | Temperatura máxima\n"+
+						"MIN    | Temperatura mínima\n"+
+						"PRCP   | Precipitação total\n"+
+						"SNDP   | Profundidade de neve em polegadas\n"+
+						"FRSHTT | Em representação binária, indica se houve Fog, Rain, Snow, Hail, Thunder e Tornado, respectivamente"
 		);
 	}
 	
