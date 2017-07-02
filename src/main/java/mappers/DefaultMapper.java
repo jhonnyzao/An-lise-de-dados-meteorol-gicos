@@ -15,7 +15,7 @@ public class DefaultMapper extends Mapper<LongWritable, Text, Text, FloatWritabl
 	
 	public static String obtemPosicaoDoMetodo(String metodo){
 		Map<String, String> posicoes = new HashMap<String, String>();
-		posicoes.put("TEMP", "25-30");
+		posicoes.put("TEMP", "25-31");
 		posicoes.put("DEWP", "36-41");
 		posicoes.put("SLP", "47-52");
 		posicoes.put("STP", "58-63");
@@ -29,11 +29,10 @@ public class DefaultMapper extends Mapper<LongWritable, Text, Text, FloatWritabl
 		posicoes.put("SNDP", "126-130");
 		posicoes.put("FRSHTT", "133-138");
 		
-		return posicoes.get("metodo");
+		return posicoes.get(metodo);
 	}
 	
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-		System.out.println("Sheila Carvalho");
 		Configuration conf = context.getConfiguration();
 		String metodo = conf.get("metodo");
 		
@@ -62,13 +61,4 @@ public class DefaultMapper extends Mapper<LongWritable, Text, Text, FloatWritabl
 		}
 
 	}
-	
-	public void run(Context context) throws IOException, InterruptedException {
-		setup(context);
-		while (context.nextKeyValue()) {
-			map(context.getCurrentKey(), context.getCurrentValue(), context);
-		}
-		cleanup(context);
-	}
-
 }

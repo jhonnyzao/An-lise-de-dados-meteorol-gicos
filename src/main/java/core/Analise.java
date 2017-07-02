@@ -36,7 +36,7 @@ public class Analise extends Configured implements Tool{
 		
 		System.out.println(
 			"----- Bem vindo ao analisador de dados meteorológicos-----\n"+
-			"Vamos começar a filtrar quais dados iremos analisar.\n\n"
+			"Vamos começar a filtrar quais dados iremos analisar.\n"
 		);
 		
 		pedeTipoDeInformacao();
@@ -81,9 +81,9 @@ public class Analise extends Configured implements Tool{
 	
 	public static void pedeTipoDeInformacao(){
 		System.out.println(
-			"Por favor, digite a sigla correspondente ao tipo de informação desejada:\n"+
+			"Por favor, digite a sigla correspondente ao tipo de informação desejada:\n\n"+
 			"Sigla | Informação\n\n"+
-			"TMP   | temperatura\n"+
+			"TEMP  | temperatura\n"+
 			"nvmar | nível do mar\n"+
 			"cond  | condição condensação da água"
 		);
