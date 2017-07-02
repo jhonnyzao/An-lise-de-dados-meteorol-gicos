@@ -9,7 +9,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import funcoes_estatisticas.MinimosQuadrados;
 
-public class TemperaturaMinimosQuadradosReducer extends Reducer<Text, FloatWritable, Text, DoubleWritable> {
+public class MinimosQuadradosReducer extends Reducer<Text, FloatWritable, Text, DoubleWritable> {
 
 	private DoubleWritable y0 = new DoubleWritable();
 	private DoubleWritable y1 = new DoubleWritable();

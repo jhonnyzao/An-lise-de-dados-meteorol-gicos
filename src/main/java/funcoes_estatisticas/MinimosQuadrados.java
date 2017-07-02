@@ -35,7 +35,9 @@ public class MinimosQuadrados {
 		return somatoriaNumerador / somatoriaDenominador;
 	}
 	
-	public Double calcularA() {
+	public Double calcularA() {		
+		double aux = mediaY - b * mediaX;
+		System.out.println("Calcular A retorna: " + aux);
 		return mediaY - b * mediaX;
 	}
 	

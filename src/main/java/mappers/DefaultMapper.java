@@ -47,7 +47,7 @@ public class DefaultMapper extends Mapper<LongWritable, Text, Text, FloatWritabl
 		if (agrupamento.contains("ANO")) {
 			chave = linha.substring(14, 18);
 		} else if (agrupamento.contains("MES")) {
-			String mesDia = linha.substring(19, 22);
+			String mesDia = linha.substring(18, 22);
 			String dia = mesDia.substring(mesDia.length() -2);
 			String mes = mesDia.replace(dia, "");
 			chave = mes;

@@ -18,7 +18,7 @@ import org.apache.hadoop.util.ToolRunner;
 import mappers.DefaultMapper;
 import reducers.DesvioPadraoReducer;
 import reducers.MediaReducer;
-import reducers.TemperaturaMinimosQuadradosReducer;
+import reducers.MinimosQuadradosReducer;
 
 public class Analise extends Configured implements Tool{
 
@@ -89,7 +89,7 @@ public class Analise extends Configured implements Tool{
 		} else if (filtros[3].contains("DESV")) {
 			job.setReducerClass(DesvioPadraoReducer.class);
 		} else if (filtros[3].contains("MIN")) {
-			job.setReducerClass(TemperaturaMinimosQuadradosReducer.class);
+			job.setReducerClass(MinimosQuadradosReducer.class);
 		} else {
 			return -1;
 		}
