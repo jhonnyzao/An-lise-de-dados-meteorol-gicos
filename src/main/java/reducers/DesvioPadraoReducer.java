@@ -16,7 +16,7 @@ public class DesvioPadraoReducer extends Reducer<Text, FloatWritable, Text, Floa
 		// TODO Auto-generated method stub
 	}
 
-	public void reduce(Text key, Iterator<FloatWritable> values, Context context) throws IOException, InterruptedException {
+	public void reduce(Text key, Iterable<FloatWritable> values, Context context) throws IOException, InterruptedException {
 		Float desvioPadrao = DesvioPadrao.desvioPadrao(values);
 
 		if (desvioPadrao != null) {

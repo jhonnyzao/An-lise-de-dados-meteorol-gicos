@@ -6,7 +6,7 @@ import org.apache.hadoop.io.FloatWritable;
 
 public class DesvioPadrao {
 
-	public static Dados varianciaPasso(Iterator<FloatWritable> values) {
+	public static Dados varianciaPasso(Iterable<FloatWritable> values) {
 		Dados dados = Media.mediaPasso(values);
 		if (dados.getMedia() == null) {
 			return dados;
@@ -27,11 +27,11 @@ public class DesvioPadrao {
 		return dados;
 	}
 
-	public static float variancia(Iterator<FloatWritable> values) {
+	public static float variancia(Iterable<FloatWritable> values) {
 		return varianciaPasso(values).getVariancia();
 	}
 
-	public static Dados desvioPadraoPasso(Iterator<FloatWritable> values) {
+	public static Dados desvioPadraoPasso(Iterable<FloatWritable> values) {
 		Dados dados = varianciaPasso(values);
 		if (dados.getMedia() == null) {
 			return dados;
@@ -41,7 +41,7 @@ public class DesvioPadrao {
 		return dados;
 	}
 
-	public static float desvioPadrao(Iterator<FloatWritable> values) {
+	public static float desvioPadrao(Iterable<FloatWritable> values) {
 		return desvioPadraoPasso(values).getDesvioPadrao();
 	}
 

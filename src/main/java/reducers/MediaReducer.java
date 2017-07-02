@@ -10,15 +10,15 @@ import org.apache.hadoop.mapreduce.Reducer;
 import funcoes_estatisticas.Media;
 
 public class MediaReducer extends Reducer<Text, FloatWritable, Text, FloatWritable> {
-	public void close() throws IOException {
-		// TODO Auto-generated method stub
-	}
+	private FloatWritable mediaTemperatura = new FloatWritable();
 
-	public void reduce(Text key, Iterator<FloatWritable> values, Context context) throws IOException, InterruptedException {
-		Float temperaturaMedia = Media.media(values);
+	@Override
+	public void reduce(Text key, Iterable<FloatWritable> values, final Context context) throws IOException, InterruptedException {
+		Float resultado = Media.media(values);
 
-		if (temperaturaMedia != null) {
-			context.write(key, new FloatWritable(temperaturaMedia));
+		if (resultado != null) {
+			mediaTemperatura.set(resultado);
+			context.write(key, mediaTemperatura);
 		}
 
 	}
