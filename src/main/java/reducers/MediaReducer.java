@@ -5,7 +5,9 @@ import java.io.IOException;
 import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.jfree.ui.RefineryUtilities;
 
+import funcoes_estatisticas.GraphPlotter;
 import funcoes_estatisticas.Media;
 
 public class MediaReducer extends Reducer<Text, FloatWritable, Text, FloatWritable> {
@@ -18,6 +20,14 @@ public class MediaReducer extends Reducer<Text, FloatWritable, Text, FloatWritab
 		if (resultado != null) {
 			mediaTemperatura.set(resultado);
 			context.write(key, mediaTemperatura);
+		}
+		
+
+		try {
+			GraphPlotter.create(key, values);
+		} catch (Exception e) {
+			System.out.println("Erro ao gerar gráfico");
+			e.printStackTrace();
 		}
 
 	}
