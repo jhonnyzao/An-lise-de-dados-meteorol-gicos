@@ -35,14 +35,23 @@ public class DefaultMapper extends Mapper<LongWritable, Text, Text, FloatWritabl
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 		Configuration conf = context.getConfiguration();
 		String metodo = conf.get("metodo");
+		String agrupamento = conf.get("agrupamento");
 		
 		String linha = value.toString();
+		String chave = "";
 
 		if (linha.contains("STN")) {
 			return;
 		}
-
-		String data = linha.substring(14, 18);
+		
+		if (agrupamento.contains("ANO")) {
+			chave = linha.substring(14, 18);
+		} else if (agrupamento.contains("MES")) {
+			String mesDia = linha.substring(19, 22);
+			String dia = mesDia.substring(mesDia.length() -2);
+			String mes = mesDia.replace(dia, "");
+			chave = mes;
+		}
 
 		float valorMedio;
 
@@ -55,7 +64,7 @@ public class DefaultMapper extends Mapper<LongWritable, Text, Text, FloatWritabl
 		valorMedio = Float.parseFloat(linha.substring(posicaoInicial, posicaoFinal));
 
 		if (valorMedio != MISSING) {
-			context.write(new Text(data), new FloatWritable(valorMedio));
+			context.write(new Text(chave), new FloatWritable(valorMedio));
 		}
 
 	}

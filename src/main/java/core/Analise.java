@@ -144,7 +144,6 @@ public class Analise extends Configured implements Tool{
 		System.out.println(
 			"\nE como você quer agrupar os resultados? Digite a sigla da opção desejada:\n\n"+
 			"MES | Por mês\n"+
-			"SEM | Por dia da semana\n"+
 			"ANO | Por ano\n"
 		);
 	}
