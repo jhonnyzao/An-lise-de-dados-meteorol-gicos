@@ -82,19 +82,29 @@ public class Analise extends Configured implements Tool{
 	public static void pedeTipoDeInformacao(){
 		System.out.println(
 			"Por favor, digite a sigla correspondente ao tipo de informação desejada:\n\n"+
-			"Sigla | Informação\n\n"+
-			"TEMP  | temperatura\n"+
-			"nvmar | nível do mar\n"+
-			"cond  | condição condensação da água"
+			"Sigla  | Informação\n\n"+
+			"TEMP   | Temperatura\n"+
+			"DEWP   | Temperatura de condensação\n"+
+			"SLP    | Pressão marítma"+
+			"STP    | Pressão do ar"+
+			"VISIB  | Visibilidade do dia"+
+			"WDSP   | Velocidade do vento"+
+			"MXSPD  | Velocidade máxima do vento"+
+			"GUST   | Rajada máxima"+
+			"MAX    | Temperatura máxima"+
+			"MIN    | Temperatura mínima"+
+			"PRCP   | Precipitação total"+
+			"SNDP   | Profundidade de neve em polegadas"+
+			"FRSHTT | Em representação binária, indica se houve Fog, Rain, Snow, Hail, Thunder e Tornado, respectivamente"
 		);
 	}
 	
 	public static void pedeAnoInicial(){
-		System.out.println("Em relação ao período de medição, digite o ano inicial desejado");
+		System.out.println("Você quer que dados de a partir de que ano entrem nos cálculos? Ex: 2009");
 	}
 	
 	public static void pedeAnoFinal(){
-		System.out.println("Agora digite o ano final desejado");
+		System.out.println("E qual o ano limite? Ex: 2017");
 	}
 	
 	public static void pedeFormaAgrupamento(){
