@@ -26,8 +26,8 @@ public class MinimosQuadrados {
 		
 		mediaX = (n+1)/2;
 		
-		for(FloatWritable value : values) {
-			somatoriaNumerador += x * (value.get() - mediaY);
+		for(float value : dados.getElementos()) {
+			somatoriaNumerador += x * (value - mediaY);
 			somatoriaDenominador += x * (x - mediaX);
 			x++;
 		}
