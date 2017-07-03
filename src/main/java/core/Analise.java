@@ -20,70 +20,74 @@ import reducers.DesvioPadraoReducer;
 import reducers.MediaReducer;
 import reducers.MinimosQuadradosReducer;
 
-public class Analise extends Configured implements Tool{
+public class Analise extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
 		Analise analise = new Analise();
 		int res = ToolRunner.run(analise, args);
 		System.exit(res);
 	}
+
 	public int run(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 		Configuration parametros = new Configuration();
 		parametros.setBoolean("mapreduce.input.fileinputformat.input.dir.recursive", true);
 		Scanner sc = new Scanner(System.in);
 
 		String[] filtros = new String[5];
-		for(int i = 0; i<= filtros.length - 1; i++){
+		for (int i = 0; i <= filtros.length - 1; i++) {
 			filtros[i] = null;
 		}
-		
-		System.out.println(
-			"----- Bem vindo ao analisador de dados meteorológicos-----\n"+
-			"Vamos começar a filtrar quais dados iremos analisar.\n"
-		);
-		
+
+		System.out.println("----- Bem vindo ao analisador de dados meteorológicos-----\n"
+				+ "Vamos começar a filtrar quais dados iremos analisar.\n");
+
 		pedeTipoDeInformacao();
 		filtros[0] = sc.nextLine();
 		pedeAnoInicial();
 		filtros[1] = sc.nextLine();
 		pedeAnoFinal();
 		filtros[2] = sc.nextLine();
-	
+
 		int anoInicial = Integer.parseInt(filtros[1]);
 		int anoFinal = Integer.parseInt(filtros[2]);
-		if (anoInicial > anoFinal){
+		if (anoInicial > anoFinal) {
 			System.out.println("O ano inicial nao pode ser maior do que o ano final");
 			System.exit(0);
 		}
-		
+
 		pedeOperacaoEstatistica();
 		filtros[3] = sc.nextLine();
 		pedeFormaAgrupamento();
 		filtros[4] = sc.nextLine();
-		
+
 		parametros.set("metodo", filtros[0]);
 		parametros.set("anoInicial", filtros[1]);
 		parametros.set("anoFinal", filtros[2]);
 		parametros.set("agrupamento", filtros[4]);
-		
+
+		parametros.set("fs.hdfs.impl", org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
+		parametros.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
+
 		Job job = new Job(parametros, "Análise Metereológica");
 		job.setJarByClass(Analise.class);
 		job.setMapperClass(DefaultMapper.class);
-		
+
 		Path inputFilePath = new Path(args[0]);
 		Path outputFilePath = new Path(args[1]);
-		
-		//apaga diretorio de output se houver, dado que o hdfs nao consegue sobrescreve-lo em tempo de execucao
+
+		// apaga diretorio de output se houver, dado que o hdfs nao consegue
+		// sobrescreve-lo em tempo de execucao
 		FileSystem hdfs = FileSystem.get(parametros);
 		if (hdfs.exists(outputFilePath)) {
-		    hdfs.delete(outputFilePath, true);
+			hdfs.delete(outputFilePath, true);
 		}
-		
-		//filtra os arquivos que serao enviados pro inputpath de acordo com os anos escolhidos
+
+		// filtra os arquivos que serao enviados pro inputpath de acordo com os
+		// anos escolhidos
 		FileInputFormat.setInputPathFilter(job, FiltroAnual.class);
 		FileInputFormat.addInputPath(job, inputFilePath);
 		FileOutputFormat.setOutputPath(job, outputFilePath);
-		
+
 		if (filtros[3].contains("MED")) {
 			job.setReducerClass(MediaReducer.class);
 		} else if (filtros[3].contains("DESV")) {
@@ -102,49 +106,32 @@ public class Analise extends Configured implements Tool{
 
 		return job.waitForCompletion(true) ? 0 : 1;
 	}
-	
-	public static void pedeTipoDeInformacao(){
-		System.out.println(
-			"Por favor, digite a sigla correspondente ao tipo de informação desejada:\n\n"+
-			"Sigla  | Informação\n\n"+
-			"TEMP   | Temperatura\n"+
-			"DEWP   | Temperatura de condensação\n"+
-			"SLP    | Pressão marítma\n"+
-			"STP    | Pressão do ar\n"+
-			"VISIB  | Visibilidade do dia\n"+
-			"WDSP   | Velocidade do vento\n"+
-			"MXSPD  | Velocidade máxima do vento\n"+
-			"GUST   | Rajada máxima\n"+
-			"MAX    | Temperatura máxima\n"+
-			"MIN    | Temperatura mínima\n"+
-			"PRCP   | Precipitação total\n"+
-			"SNDP   | Profundidade de neve em polegadas\n"+
-			"FRSHTT | Em representação binária, indica se houve Fog, Rain, Snow, Hail, Thunder e Tornado, respectivamente\n"
-		);
+
+	public static void pedeTipoDeInformacao() {
+		System.out.println("Por favor, digite a sigla correspondente ao tipo de informação desejada:\n\n"
+				+ "Sigla  | Informação\n\n" + "TEMP   | Temperatura\n" + "DEWP   | Temperatura de condensação\n"
+				+ "SLP    | Pressão marítma\n" + "STP    | Pressão do ar\n" + "VISIB  | Visibilidade do dia\n"
+				+ "WDSP   | Velocidade do vento\n" + "MXSPD  | Velocidade máxima do vento\n"
+				+ "GUST   | Rajada máxima\n" + "MAX    | Temperatura máxima\n" + "MIN    | Temperatura mínima\n"
+				+ "PRCP   | Precipitação total\n" + "SNDP   | Profundidade de neve em polegadas\n"
+				+ "FRSHTT | Em representação binária, indica se houve Fog, Rain, Snow, Hail, Thunder e Tornado, respectivamente\n");
 	}
-	
-	public static void pedeAnoInicial(){
+
+	public static void pedeAnoInicial() {
 		System.out.println("\nVocê quer que dados de a partir de que ano entrem nos cálculos? Ex: 2009");
 	}
-	
-	public static void pedeAnoFinal(){
+
+	public static void pedeAnoFinal() {
 		System.out.println("\nE qual o ano limite? Ex: 2017");
 	}
-	
-	public static void pedeOperacaoEstatistica(){
-		System.out.println(
-			"\nQue operação você deseja realizar na análise? Digite a sigla correspondente:\n"+
-			"MED  | Média\n"+
-			"DESV | Desvio padrão\n"+
-			"MIN  | Mínimos quadrados\n"
-		);
+
+	public static void pedeOperacaoEstatistica() {
+		System.out.println("\nQue operação você deseja realizar na análise? Digite a sigla correspondente:\n"
+				+ "MED  | Média\n" + "DESV | Desvio padrão\n" + "MIN  | Mínimos quadrados\n");
 	}
-	
-	public static void pedeFormaAgrupamento(){
-		System.out.println(
-			"\nE como você quer agrupar os resultados? Digite a sigla da opção desejada:\n\n"+
-			"MES | Por mês\n"+
-			"ANO | Por ano\n"
-		);
+
+	public static void pedeFormaAgrupamento() {
+		System.out.println("\nE como você quer agrupar os resultados? Digite a sigla da opção desejada:\n\n"
+				+ "MES | Por mês\n" + "ANO | Por ano\n");
 	}
 }
