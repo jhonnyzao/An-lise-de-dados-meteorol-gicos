@@ -1,6 +1,7 @@
 package reducers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.Text;
@@ -23,12 +24,16 @@ public class MediaReducer extends Reducer<Text, FloatWritable, Text, FloatWritab
 		}
 		
 
-		try {
-			GraphPlotter.create(key, values);
-		} catch (Exception e) {
-			System.out.println("Erro ao gerar gráfico");
-			e.printStackTrace();
-		}
+			ArrayList<Float> fValue = new ArrayList<Float>();
+			for(FloatWritable value : values) {
+				fValue.add(value.get());
+			}
+			try {
+				GraphPlotter.create(key, fValue);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
 
 	}
 
