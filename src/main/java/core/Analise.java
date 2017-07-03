@@ -9,9 +9,9 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
@@ -96,6 +96,7 @@ public class Analise extends Configured implements Tool {
 		} else if (filtros[3].contains("MIN")) {
 			job.setReducerClass(MinimosQuadradosReducer.class);
 		} else {
+			sc.close();
 			return -1;
 		}
 
@@ -104,10 +105,17 @@ public class Analise extends Configured implements Tool {
 
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(FloatWritable.class);
-		
+
+		boolean func = job.waitForCompletion(true);
+
+		GraphPlotter.setOutputFolder(args[1]);
+
 		GraphPlotter.plot();
-		
-		return job.waitForCompletion(true) ? 0 : 1;
+
+		sc.close();
+
+		return func ? 0 : 1;
+
 	}
 
 	public static void pedeTipoDeInformacao() {
