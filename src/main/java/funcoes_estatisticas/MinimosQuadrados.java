@@ -36,8 +36,6 @@ public class MinimosQuadrados {
 	}
 	
 	public Double calcularA() {		
-		double aux = mediaY - b * mediaX;
-		System.out.println("Calcular A retorna: " + aux);
 		return mediaY - b * mediaX;
 	}
 	
