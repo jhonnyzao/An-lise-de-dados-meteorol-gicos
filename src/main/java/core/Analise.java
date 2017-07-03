@@ -15,6 +15,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+import funcoes_estatisticas.GraphPlotter;
 import mappers.DefaultMapper;
 import reducers.DesvioPadraoReducer;
 import reducers.MediaReducer;
@@ -103,7 +104,9 @@ public class Analise extends Configured implements Tool {
 
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(FloatWritable.class);
-
+		
+		GraphPlotter.plot();
+		
 		return job.waitForCompletion(true) ? 0 : 1;
 	}
 
