@@ -6,7 +6,6 @@ import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-import funcoes_estatisticas.Dados;
 import funcoes_estatisticas.GraphPlotter;
 import funcoes_estatisticas.Media;
 
@@ -17,8 +16,7 @@ public class MediaReducer extends Reducer<Text, FloatWritable, Text, FloatWritab
 	public void reduce(Text key, Iterable<FloatWritable> values, final Context context)
 			throws IOException, InterruptedException {
 
-		Dados dados = Media.mediaPasso(values);
-		Float resultado = dados.getMedia();
+		Float resultado = Media.media(values);
 
 		if (resultado != null) {
 			mediaTemperatura.set(resultado);
@@ -26,7 +24,7 @@ public class MediaReducer extends Reducer<Text, FloatWritable, Text, FloatWritab
 		}
 
 		try {
-			GraphPlotter.create(key, dados.getElementos());
+			GraphPlotter.create(key, resultado);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

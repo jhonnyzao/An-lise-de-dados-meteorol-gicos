@@ -2,7 +2,6 @@ package funcoes_estatisticas;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.apache.hadoop.io.Text;
 import org.jfree.chart.ChartFactory;
@@ -15,10 +14,9 @@ public class GraphPlotter {
 	static DefaultCategoryDataset line_chart_dataset = new DefaultCategoryDataset();
 	static String output = "output";
 
-	public static void create(Text key, ArrayList<Float> values) throws Exception {
-		for (Float value : values) {
-			line_chart_dataset.addValue(value, "", key);
-		}
+	public static void create(Text key, float value) throws Exception {
+		line_chart_dataset.addValue(value, "", key);
+
 	}
 
 	public static void setOutputFolder(String output) {
